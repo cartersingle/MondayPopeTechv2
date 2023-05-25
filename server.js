@@ -122,6 +122,13 @@ app.post("/groups", async (req, res) => {
     }
     // SET GROUP DATA ON MONDAY
     const IDS = ["text63", "text5", "text81"];
+    await monday.api(`
+      mutation {
+        change_multiple_column_values(item_id: ${id}, board_id: ${process.env.BOARD_ID}, column_values: \"{ \\\"${IDS[0]}\\\": \\\"\\\", \\\"${IDS[1]}\\\":\\\"\\\", \\\"${IDS[2]}\\\":\\\"\\\" }\") {
+          id
+        }
+      }
+    `);
     groupTree.forEach(async (group, idx) => {
       const res = await monday.api(`
       mutation {
